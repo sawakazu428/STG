@@ -1,4 +1,6 @@
 ﻿#include <Novice.h>
+#include "Player.h"
+#include "Enemy.h"
 
 const char kWindowTitle[] = "GC1A_12_サワダカズキ_タイトル";
 
@@ -9,9 +11,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
 	// キー入力結果を受け取る箱
-	char keys[256] = {0};
-	char preKeys[256] = {0};
+	char keys[256] = { 0 };
+	char preKeys[256] = { 0 };
 
+	Player player;
+
+	player.Initialize();
+
+	PlayerBullet playerbullet;
+
+	playerbullet.Initialize();
+
+	Enemy enemy;
+
+	enemy.Initialize();
+
+	EnemyBullet enemybullet;
+
+	enemybullet.Initialize();
+
+	int playerBulletDistance;
+
+	int score = 0;
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -25,19 +46,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		///
-		/// ↑更新処理ここまで
-		///
+		player.Move(keys, preKeys);
 
-		///
-		/// ↓描画処理ここから
-		///
+		player.Update(keys, preKeys);
 
-		///
-		/// ↑描画処理ここまで
-		///
+			playerBulletDistance = (playerbullet.GetPlayerBulletPosX() - enemy.GetEnemyPosX()) * (playerbullet.GetPlayerBulletPosX() - enemy.GetEnemyPosX()) + (playerbullet.GetPlayerBulletPosY() - enemy.GetEnemyPosY()) * (playerbullet.GetPlayerBulletPosY() - enemy.GetEnemyPosY());
 
-		// フレームの終了
+			if (enemy.GetEnemyIsAlive() && playerbullet.GetPlayerIsBulletShot() == true)
+			{
+				if (playerbullet.GetPlayerBulletRadius() + enemy.GetEnemyRadius() * playerbullet.GetPlayerBulletRadius() + enemy.GetEnemyRadius() >= playerBulletDistance)
+				{
+
+				playerbullet.BulletOnColision();
+				score += 100;
+				}
+			}
+			///
+			/// ↑更新処理ここまで
+			///
+
+			///
+			/// ↓描画処理ここから
+			///
+
+			///
+			/// ↑描画処理ここまで
+			///
+
+			// フレームの終了
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
