@@ -71,7 +71,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			enemybulletdistance = (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) * (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) + (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY()) * (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY());
 
-			if (enemybullet.GetIsEnemyBulletShot() == true && player.GetPlayerIsAlive() == true)
+			if (enemybullet.GetIsEnemyBulletShot() == true && player.GetPlayerIsAlive() == true && player.GetPlayerAvoid() == false)
 			{
 				if ((enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) * (enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) >= enemybulletdistance) //敵の弾が自機に当たる判定
 				{

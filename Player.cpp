@@ -10,7 +10,9 @@ void Player::Initialize()
 	playerMoveSpeed_ = 6;
 	playerHP_ = 5;
 	playerIsAlive_ = true;
-	delayFrameBullet_ = 10;
+	playerAvoid_ = false;
+	playerAvoidTime_ = 10;
+	delayFrameBullet_ = 30;
 	playerDelayFrameBullet_ = delayFrameBullet_;
 
 	playerHitTime_ = 90;
@@ -30,6 +32,20 @@ void Player::Update(char* keys, char* preKeys)
 	{
 		playerDelayFrameBullet_--;
 	}
+	
+	if (keys[DIK_Z] && preKeys[DIK_Z] == 0)
+	{
+		playerAvoid_ = true;
+	}
+	if (playerAvoid_ == true)
+	{
+		playerAvoidTime_--;
+	}
+	if (playerAvoidTime_ <= 0)
+	{
+		playerAvoid_ = false;
+		playerAvoidTime_ = 10;
+	}
 
 	if (playerbullet_.GetPlayerIsBulletShot() == false)
 	{
@@ -44,7 +60,7 @@ void Player::Update(char* keys, char* preKeys)
 
 	if (playerIsAlive_ == false)
 	{
-		playerHitTime_--;;
+		playerHitTime_--;
 	}
 	if (playerHitTime_ <= 0)
 	{

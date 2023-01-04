@@ -23,22 +23,22 @@ void Enemy::Update()
 	{
 		delayFrameBulletEnemy_--;
 	}
-	if (enemyIsAlive_ == false) //�G�̌��j��
+	if (enemyIsAlive_ == false)
 	{
 		enemyRespawnCount_ -= 1;
 		enemyExplosion_ = true;
 	}
-	if (enemyRespawnCount_ <= 90) //0.5�b�㔚���摜������
+	if (enemyRespawnCount_ <= 90) 
 	{
 		enemyExplosion_ = false;
 	}
-	if (enemyRespawnCount_ == 0) //�G���j�̓�b��ɕ���
+	if (enemyRespawnCount_ == 0) 
 	{
 		enemyIsAlive_ = true;
 		enemyRespawnCount_ = 120;
 	}
 
-	if (enemyBullet_.GetIsEnemyBulletShot() == false && enemyIsAlive_ == true && delayFrameBulletEnemy_ <= 0) //�G�̒e�̔���
+	if (enemyBullet_.GetIsEnemyBulletShot() == false && enemyIsAlive_ == true && delayFrameBulletEnemy_ <= 0) 
 	{
 		delayFrameBulletEnemy_ = enemyDelayFrameBullet_;
 		enemyBullet_.SetEnemyBulletInfo(enemyPosX_, enemyPosY_, enemySpeedX_, enemySpeedY_, enemyRadius_);
