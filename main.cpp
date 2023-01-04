@@ -32,6 +32,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	int playerBulletDistance;
 
+	int enemybulletdistance;
+
 	int score = 0;
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -61,6 +63,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				score += 100;
 				}
 			}
+			enemy.Update();
+
+			enemy.Move();
+
+			enemybullet.Update();
+
+			enemybulletdistance = (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) * (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) + (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY()) * (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY());
+
+			if (enemybullet.GetIsEnemyBulletShot() == true && player.GetPlayerIsAlive() == true)
+			{
+				if ((enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) * (enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) >= enemybulletdistance) //敵の弾が自機に当たる判定
+				{
+					enemybullet.EnemyBulletOnColision();
+					player.PlayerOnColision();
+				}
+			}
+
+
 			///
 			/// ↑更新処理ここまで
 			///

@@ -43,6 +43,17 @@ public:
 	/// �`��֐�
 	/// </summary>
 	void Draw();
+
+	int GetPlayerPosX() { return playerPosX_; };
+	int GetPlayerPosY() { return playerPosY_; };
+	int GetPlayerSpeedX() { return playerSpeedX_; };
+	int GetPlayerSpeedY() { return playerSpeedY_; };
+	int GetPlayerRadius() { return playerRadius_; };
+	int GetPlayerIsAlive() { return playerIsAlive_; };
+	int GetPlayerHitPoint() { return playerHP_; };
+
+	void PlayerOnColision();
+
 };
 
 

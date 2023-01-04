@@ -1,4 +1,5 @@
 #pragma once
+#include "Player.h"
 class PlayerBullet
 {
 private:
@@ -8,8 +9,8 @@ private:
 	int playerBulletSpeedY_;
 	int playerBulletRadius_;
 	int playerBulletNum_;
-	bool PlayerIsBulletShot_;
-
+	bool playerIsBulletShot_;
+	int playerBulletPoint_;
 
 public:
 	void Initialize();
@@ -25,7 +26,7 @@ public:
 	int GetPlayerBulletSpeedX() { return playerBulletSpeedX_; };
 	int GetPlayerBulletSpeedY() { return playerBulletSpeedY_; };
 	int GetPlayerBulletRadius() { return playerBulletRadius_; };
-	int GetPlayerIsBulletShot() { return PlayerIsBulletShot_; };
+	int GetPlayerIsBulletShot() { return playerIsBulletShot_; };
 
 	void BulletOnColision();
 };

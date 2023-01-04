@@ -143,3 +143,7 @@ void Player::Draw()
 	}
 
 }
+
+void Player::PlayerOnColision()
+{
+}
