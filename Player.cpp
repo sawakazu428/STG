@@ -23,9 +23,9 @@ void Player::Initialize()
 	isPlayerPoint_ = true;
 	playerExplosion_ = false;
 	playerDefeatCount_ = 60;
-	blueHealth_[0] = Novice::LoadTexture("./Resources/blueHeart.png");
-	blueHealth_[1] = Novice::LoadTexture("./Resources/blueHeart.png");
-	blueHealth_[2] = Novice::LoadTexture("./Resources/blueHeart.png");
+	//blueHealth_[0] = Novice::LoadTexture("./Resources/blueHeart.png");
+	//blueHealth_[1] = Novice::LoadTexture("./Resources/blueHeart.png");
+	//blueHealth_[2] = Novice::LoadTexture("./Resources/blueHeart.png");
 
 }
 

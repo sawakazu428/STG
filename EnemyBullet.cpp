@@ -6,7 +6,7 @@ void EnemyBullet::Initialize()
 	enemyBulletRadius_ = 30;
 	enemyBulletSpeedX_ = 4;
 	enemyBulletSpeedY_ = 4;
-	drawEnemyBullet_ = Novice::LoadTexture("./Resources/enemyBullet.png");
+	//drawEnemyBullet_ = Novice::LoadTexture("./Resources/enemyBullet.png");
 }
 
 void EnemyBullet::Update()
