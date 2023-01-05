@@ -65,6 +65,11 @@ void Enemy::Draw()
 {
 	if (enemyIsAlive_ == true)
 	{
+		Novice::DrawBox(enemyPosX_ - 32.0f, enemyPosY_ - 32.0f,32,32, 0.0f, BLACK, kFillModeSolid);
+	}
+	
+	/*if (enemyIsAlive_ == true)
+	{
 		Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosY_ - 32.0f, enemyPoint_, 1, 1, 0.0f, 0xFFFFFFFF);
 	}
 	if (enemyExplosion_ == true && enemyRespawnCount_ != 120)
@@ -93,7 +98,7 @@ void Enemy::Draw()
 		{
 			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[5], 1, 1, 0.0f, 0xFFFFFFFF);
 		}
-	}
+	}*/
 
 }
 

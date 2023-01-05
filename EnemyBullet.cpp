@@ -28,7 +28,9 @@ void EnemyBullet::Draw()
 {
 	if (isEnemyBulletShot_ == true)
 	{
-		Novice::DrawSprite(enemyBulletPosX_ - 32.0f, enemyBulletPosY_ - 32.0f, drawEnemyBullet_, 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawBox(enemyBulletPosX_ - 32.0f, enemyBulletPosY_ - 32.0f, 32,32, 0.0f, RED, kFillModeSolid);
+
+		//Novice::DrawSprite(enemyBulletPosX_ - 32.0f, enemyBulletPosY_ - 32.0f, drawEnemyBullet_, 1, 1, 0.0f, 0xFFFFFFFF);
 		//Novice::DrawTriangle(bulletenemy[j].bulletposX - 10, bulletenemy[j].bulletposY + 10, bulletenemy[j].bulletposX + 10, bulletenemy[j].bulletposY + 10, bulletenemy[j].bulletposX, bulletenemy[j].bulletposY + 25, 0xFFFFFFFF, kFillModeSolid); //�e
 	}
 }

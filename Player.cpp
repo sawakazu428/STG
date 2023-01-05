@@ -216,4 +216,7 @@ void Player::Draw()
 
 void Player::PlayerOnColision()
 {
+	playerHP_ -= 1;
+	isPlayerInvincibleHit_ = true;
+	playerIsAlive_ = false;
 }
