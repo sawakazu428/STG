@@ -20,6 +20,7 @@ private:
 	int enemyDelayFrameBullet_;
 	int enemyPoint_;
 	int drawExplosion1_[6];
+
 	EnemyBullet enemyBullet_;
 public:
 	void Initialize();

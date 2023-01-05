@@ -1,5 +1,5 @@
 #pragma once
-#include "Enemy.h"
+#include "Novice.h"
 class EnemyBullet
 {
 private:
