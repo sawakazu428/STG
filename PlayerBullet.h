@@ -11,11 +11,15 @@ private:
 	int playerBulletNum_;
 	bool playerIsBulletShot_;
 	int playerBulletPoint_;
-
+	int playerBulletRandSpeed_;
 public:
 	void Initialize();
 
-	void Update();
+	void NormalUpdate();
+
+	void DiffusionUpdate();
+
+	void LinearUpdate();
 
 	void Draw();
 

@@ -12,8 +12,42 @@ void PlayerBullet::Initialize()
 	playerBulletPoint_;
 }
 
-void PlayerBullet::Update()
+void PlayerBullet::NormalUpdate()
 {
+	playerIsBulletShot_ = false;
+
+	
+	if (playerIsBulletShot_ == true)
+	{
+		playerBulletPosX_ -= playerBulletSpeedX_;
+	}
+
+	if (playerBulletPosX_ - playerBulletRadius_ < 0)
+	{
+		playerIsBulletShot_ = false;
+	}
+}
+
+void PlayerBullet::DiffusionUpdate()
+{
+
+	playerIsBulletShot_ = false;
+
+
+	if (playerIsBulletShot_ == true)
+	{
+		playerBulletPosX_ -= playerBulletSpeedX_;
+	}
+
+	if (playerBulletPosX_ - playerBulletRadius_ < 0)
+	{
+		playerIsBulletShot_ = false;
+	}
+}
+
+void PlayerBullet::LinearUpdate()
+{
+
 	playerIsBulletShot_ = false;
 
 

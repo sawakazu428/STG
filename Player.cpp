@@ -14,6 +14,9 @@ void Player::Initialize()
 	playerAvoidTime_ = 10;
 	delayFrameBullet_ = 30;
 	playerDelayFrameBullet_ = delayFrameBullet_;
+	playerDoubleShot_ = true;
+	playerShotGun_ = false;
+	playerLaserGun_ = false;
 
 	playerHitTime_ = 90;
 	isPlayerInvincibleHit_ = true;
@@ -33,6 +36,45 @@ void Player::Update(char* keys, char* preKeys)
 		playerDelayFrameBullet_--;
 	}
 	
+	if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerDoubleShot_ == true)
+	{
+		playerDoubleShot_ = false;
+		playerShotGun_ = false;
+		playerLaserGun_ = true; // ON
+	}
+	if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerLaserGun_ == true)
+	{
+		playerDoubleShot_ = false;
+		playerShotGun_ = true; // ON
+		playerLaserGun_ = false;
+	}
+	if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerShotGun_ == true)
+	{
+		playerDoubleShot_ = true; // ON
+		playerShotGun_ = false;
+		playerLaserGun_ = false;
+	}
+
+	if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerDoubleShot_ == true)
+	{
+		playerDoubleShot_ = false;
+		playerShotGun_ = false;
+		playerLaserGun_ = true; // ON
+	}
+	if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerLaserGun_ == true)
+	{
+		playerDoubleShot_ = false;
+		playerShotGun_ = true; // ON
+		playerLaserGun_ = false;
+	}
+	if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerShotGun_ == true)
+	{
+		playerDoubleShot_ = true; // ON
+		playerShotGun_ = false;
+		playerLaserGun_ = false;
+	}
+
+
 	if (keys[DIK_Z] && preKeys[DIK_Z] == 0)
 	{
 		playerAvoid_ = true;
@@ -55,8 +97,20 @@ void Player::Update(char* keys, char* preKeys)
 			playerbullet_.SetPlayerBulletInfo(playerPosX_, playerPosY_, playerSpeedX_, playerSpeedY_, playerRadius_);
 		}
 	}
+	if (playerDoubleShot_ == true)
+	{
+		playerbullet_.NormalUpdate();
+	}
 
-	playerbullet_.Update();
+	if (playerShotGun_ == true)
+	{
+		playerbullet_.DiffusionUpdate();
+	}
+	
+	if (playerLaserGun_ == true)
+	{
+		playerbullet_.LinearUpdate();
+	}
 
 	if (playerIsAlive_ == false)
 	{

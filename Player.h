@@ -4,16 +4,19 @@
 class Player
 {
 private:
-	int playerPosX_;      // 座標
-	int playerPosY_;      // 座標
-	int playerRadius_;    // 半径
-	int playerSpeedX_;    // 速度
-	int playerSpeedY_;    // 速度
-	int playerMoveSpeed_; // 速度の初期化
-	int playerHP_;        // HP
-	bool playerIsAlive_;  // プレイヤーフラグ
-	bool playerAvoid_;    // 回避したときのフラグ
-	int playerAvoidTime_; // 回避している時間
+	int playerPosX_;        // 座標
+	int playerPosY_;        // 座標
+	int playerRadius_;      // 半径
+	int playerSpeedX_;      // 速度
+	int playerSpeedY_;      // 速度
+	int playerMoveSpeed_;   // 速度の初期化
+	int playerHP_;          // HP
+	bool playerIsAlive_;    // プレイヤーフラグ
+	bool playerAvoid_;      // 回避したときのフラグ
+	int playerAvoidTime_;   // 回避している時間
+	bool playerDoubleShot_; // 通常の弾を撃つフラグ
+	bool playerShotGun_;    // 拡散弾を撃つフラグ
+	bool playerLaserGun_;   // レーザーを撃つフラグ
 
 	int delayFrameBullet_;       // プレイやーの弾丸発射の待機時間
 	int playerDelayFrameBullet_; // プレイヤーが射撃するクールタイム
@@ -54,6 +57,9 @@ public:
 	int GetPlayerIsAlive() { return playerIsAlive_; };
 	int GetPlayerHitPoint() { return playerHP_; };
 	int GetPlayerAvoid() { return playerAvoid_; };
+	int GetPlayerDoubleShot() { return playerDoubleShot_; };
+	int GetPlayerShotGun() { return playerShotGun_; };
+	int GetPlayerLaserGun() { return playerLaserGun_; };
 
 	void PlayerOnColision();
 
