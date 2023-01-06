@@ -10,6 +10,10 @@ void PlayerBullet::Initialize()
 	playerBulletNum_ = 20;
 	playerIsBulletShot_ = true;
 	playerBulletPoint_;
+	randX_ = rand() % 12 - 6;
+	randY_ = rand() % 12 - 6;
+	playerBulletRandSpeedX_ = randX_;
+	playerBulletRandSpeedY_ = randY_;
 }
 
 void PlayerBullet::NormalUpdate()
@@ -36,13 +40,27 @@ void PlayerBullet::DiffusionUpdate()
 
 	if (playerIsBulletShot_ == true)
 	{
-		playerBulletPosX_ -= playerBulletSpeedX_;
+		playerBulletPosX_ -= playerBulletRandSpeedX_;
+		playerBulletPosY_ -= playerBulletRandSpeedY_;
 	}
 
 	if (playerBulletPosX_ - playerBulletRadius_ < 0)
 	{
 		playerIsBulletShot_ = false;
 	}
+	if (playerBulletPosX_ + playerBulletRadius_ > 1280)
+	{
+		playerIsBulletShot_ = false;
+	}
+	if (playerBulletPosY_ - playerBulletRadius_ < 0)
+	{
+		playerIsBulletShot_ = false;
+	}
+	if (playerBulletPosY_ + playerBulletRadius_ > 720)
+	{
+		playerIsBulletShot_ = false;
+	}
+
 }
 
 void PlayerBullet::LinearUpdate()
@@ -74,11 +92,11 @@ void PlayerBullet::Draw()
 
 void PlayerBullet::SetPlayerBulletInfo(int posX, int posY, int speedX, int speedY, int radius)
 {
-	posX = playerBulletPosX_;
-	posY = playerBulletPosY_;
-	speedX = playerBulletSpeedX_;
-	speedY = playerBulletSpeedY_;
-	radius = playerBulletRadius_;
+	playerBulletPosX_ = posX;
+	playerBulletPosY_ = posY;
+	playerBulletSpeedX_ = speedX;
+	playerBulletSpeedY_ = speedY;
+	playerBulletRadius_ = radius;
 }
 
 void PlayerBullet::BulletOnColision()

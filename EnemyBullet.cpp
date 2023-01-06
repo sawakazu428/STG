@@ -37,11 +37,11 @@ void EnemyBullet::Draw()
 
 void EnemyBullet::SetEnemyBulletInfo(int posX, int posY, int speedX, int speedY, int radius)
 {
-	posX = enemyBulletPosX_;
-	posY = enemyBulletPosY_;
-	speedX = enemyBulletSpeedX_;
-	speedY = enemyBulletSpeedY_;
-	radius = enemyBulletRadius_;
+	enemyBulletPosX_ = posX;
+	enemyBulletPosY_ = posY;
+	enemyBulletSpeedX_ = speedX;
+	enemyBulletSpeedY_ = speedY;
+	enemyBulletRadius_ = radius;
 }
 
 void EnemyBullet::EnemyBulletOnColision()

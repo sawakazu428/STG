@@ -11,7 +11,10 @@ private:
 	int playerBulletNum_;
 	bool playerIsBulletShot_;
 	int playerBulletPoint_;
-	int playerBulletRandSpeed_;
+	int randX_;
+	int randY_;
+	int playerBulletRandSpeedX_;
+	int playerBulletRandSpeedY_;
 public:
 	void Initialize();
 

@@ -52,33 +52,31 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		player.Update(keys, preKeys);
 
-			playerBulletDistance = (playerbullet.GetPlayerBulletPosX() - enemy.GetEnemyPosX()) * (playerbullet.GetPlayerBulletPosX() - enemy.GetEnemyPosX()) + (playerbullet.GetPlayerBulletPosY() - enemy.GetEnemyPosY()) * (playerbullet.GetPlayerBulletPosY() - enemy.GetEnemyPosY());
+		playerBulletDistance = (playerbullet.GetPlayerBulletPosX() - enemy.GetEnemyPosX()) * (playerbullet.GetPlayerBulletPosX() - enemy.GetEnemyPosX()) + (playerbullet.GetPlayerBulletPosY() - enemy.GetEnemyPosY()) * (playerbullet.GetPlayerBulletPosY() - enemy.GetEnemyPosY());
 
-			if (enemy.GetEnemyIsAlive() && playerbullet.GetPlayerIsBulletShot() == true)
+		if (enemy.GetEnemyIsAlive() && playerbullet.GetPlayerIsBulletShot() == true)
+		{
+			if (playerbullet.GetPlayerBulletRadius() + enemy.GetEnemyRadius() * playerbullet.GetPlayerBulletRadius() + enemy.GetEnemyRadius() >= playerBulletDistance)
 			{
-				if (playerbullet.GetPlayerBulletRadius() + enemy.GetEnemyRadius() * playerbullet.GetPlayerBulletRadius() + enemy.GetEnemyRadius() >= playerBulletDistance)
-				{
-
 				playerbullet.BulletOnColision();
 				score += 100;
-				}
 			}
-			enemy.Update();
+		}
 
-			enemy.Move();
+		enemy.Update();
 
-			enemybullet.Update();
+		enemy.Move();
 
-			enemybulletdistance = (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) * (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) + (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY()) * (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY());
+		enemybulletdistance = (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) * (enemybullet.GetEnemyBulletPosX() - player.GetPlayerPosX()) + (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY()) * (enemybullet.GetEnemyBulletPosY() - player.GetPlayerPosY());
 
-			if (enemybullet.GetIsEnemyBulletShot() == true && player.GetPlayerIsAlive() == true && player.GetPlayerAvoid() == false)
+		if (enemybullet.GetIsEnemyBulletShot() == true && player.GetPlayerIsAlive() == true && player.GetPlayerAvoid() == false)
+		{
+			if ((enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) * (enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) >= enemybulletdistance) //敵の弾が自機に当たる判定
 			{
-				if ((enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) * (enemybullet.GetEnemyBulletRadius() + player.GetPlayerRadius()) >= enemybulletdistance) //敵の弾が自機に当たる判定
-				{
-					enemybullet.EnemyBulletOnColision();
-					player.PlayerOnColision();
-				}
+				enemybullet.EnemyBulletOnColision();
+				player.PlayerOnColision();
 			}
+		}
 
 
 			///
