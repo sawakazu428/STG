@@ -4,29 +4,25 @@ void PlayerBullet::Initialize()
 {
 	playerBulletPosX_ = 100;
 	playerBulletPosY_ = 100;
+	playerRightBulletPosX_ = 120;
+	playerBottomBulletPosY_ = 120;
 	playerBulletSpeedX_ = 6;
 	playerBulletSpeedY_ = 6;
 	playerBulletRadius_ = 20;
 	playerBulletNum_ = 20;
-	playerIsBulletShot_ = true;
-	playerBulletPoint_;
-	randX_ = rand() % 12 - 6;
-	randY_ = rand() % 12 - 6;
-	playerBulletRandSpeedX_ = randX_;
-	playerBulletRandSpeedY_ = randY_;
+	playerIsBulletShot_ = false;
+	playerBulletPoint_ = Novice::LoadTexture("./Resources/bullet.png");
 }
 
 void PlayerBullet::NormalUpdate()
 {
-	playerIsBulletShot_ = false;
-
 	
 	if (playerIsBulletShot_ == true)
 	{
-		playerBulletPosX_ -= playerBulletSpeedX_;
+		playerBulletPosX_ += playerBulletSpeedX_;
 	}
 
-	if (playerBulletPosX_ - playerBulletRadius_ < 0)
+	if (playerBulletPosX_ - playerBulletRadius_ > 1280)
 	{
 		playerIsBulletShot_ = false;
 	}
@@ -35,13 +31,10 @@ void PlayerBullet::NormalUpdate()
 void PlayerBullet::DiffusionUpdate()
 {
 
-	playerIsBulletShot_ = false;
-
-
 	if (playerIsBulletShot_ == true)
 	{
-		playerBulletPosX_ -= playerBulletRandSpeedX_;
-		playerBulletPosY_ -= playerBulletRandSpeedY_;
+		playerBulletPosX_ += playerBulletSpeedX_;
+		playerBulletPosY_ += playerBulletSpeedY_;
 	}
 
 	if (playerBulletPosX_ - playerBulletRadius_ < 0)
@@ -64,10 +57,7 @@ void PlayerBullet::DiffusionUpdate()
 }
 
 void PlayerBullet::LinearUpdate()
-{
-
-	playerIsBulletShot_ = false;
-
+{	
 
 	if (playerIsBulletShot_ == true)
 	{
@@ -82,7 +72,6 @@ void PlayerBullet::LinearUpdate()
 
 void PlayerBullet::Draw()
 {
-
 	if (playerIsBulletShot_ == true) //ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚éŽž‚É’e‚ð•`‰æ‚·‚é
 	{
 		//Novice::DrawTriangle(playerbulletposX[i] - 5, playerbulletposY[i] - 10, playerbulletposX[i] + 5, playerbulletposY[i] - 10, playerbulletposX[i], playerbulletposY[i] - 25, 0xFFFFFFFF, kFillModeSolid); //’e
@@ -90,16 +79,20 @@ void PlayerBullet::Draw()
 	}
 }
 
-void PlayerBullet::SetPlayerBulletInfo(int posX, int posY, int speedX, int speedY, int radius)
+void PlayerBullet::SetPlayerBulletInfo(int posX, int posY, int speedX, int speedY)
 {
 	playerBulletPosX_ = posX;
 	playerBulletPosY_ = posY;
 	playerBulletSpeedX_ = speedX;
 	playerBulletSpeedY_ = speedY;
-	playerBulletRadius_ = radius;
 }
 
 void PlayerBullet::BulletOnColision()
 {
 	playerIsBulletShot_ = true;
+}
+
+void PlayerBullet::BulletReceiveOnColision()
+{
+	playerIsBulletShot_ = false;
 }

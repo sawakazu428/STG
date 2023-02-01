@@ -19,7 +19,13 @@ private:
 	bool playerLaserGun_;   // レーザーを撃つフラグ
 
 	int delayFrameBullet_;       // プレイやーの弾丸発射の待機時間
+	int delayFrameBullet1_;       // プレイやーの弾丸発射の待機時間
+	int delayFrameBullet2_;       // プレイやーの弾丸発射の待機時間
+
 	int playerDelayFrameBullet_; // プレイヤーが射撃するクールタイム
+	int playerDelayFrameBullet1_; // プレイヤーが射撃するクールタイム
+	int playerDelayFrameBullet2_; // プレイヤーが射撃するクールタイム
+
 	int playerHitTime_;          // プレイヤーが無敵になっている時間
 	int playerExplosion_;        // プレイヤーがやられた後に爆発しているかのフラグ
 	bool isPlayerInvincibleHit_; // プレイヤーが無敵になる時のフラグ
@@ -27,7 +33,7 @@ private:
 	int playerDefeatCount_;      // プレイヤーがやられた後のフレーム管理
 	int blueHealth_[3];          // HP表示
 
-	PlayerBullet playerbullet_;
+	PlayerBullet playerbullet_[20];
 public:
 	/// <summary>
 	/// �������֐�
@@ -48,7 +54,8 @@ public:
 	/// �`��֐�
 	/// </summary>
 	void Draw();
-
+	
+	PlayerBullet* GetPlayerBullet() { return playerbullet_; }
 	int GetPlayerPosX() { return playerPosX_; };
 	int GetPlayerPosY() { return playerPosY_; };
 	int GetPlayerSpeedX() { return playerSpeedX_; };

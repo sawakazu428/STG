@@ -1,23 +1,33 @@
 ﻿#include "Enemy.h"
 
-void Enemy::Initialize()
+
+void BoxEnemy::Initialize(int x, int y)
 {
-	enemyPosX_ = 100;
-	enemyPosY_ = 100;
-	enemySpeedX_ = 4;
+	enemyPosX_ = x;
+	enemyPosY_ = y;
+	enemySpeedX_ = 1;
 	enemySpeedY_ = 4;
-	enemyRadius_ = 30;
+	enemyRadius_ = 32;
 	enemyHP_ = 1;
 	enemyIsAlive_ = true;
 
 	enemyExplosion_ = false;
 	enemyRespawnCount_ = 120;
 
-	enemyDelayFrameBullet_ = 10;
+	enemyDelayFrameBullet_ = 60;
 	delayFrameBulletEnemy_ = enemyDelayFrameBullet_;
+	for (int i = 0; i < 20; i++)
+	{
+		enemyBullet_[i].Initialize();
+	}
+	for (int i = 0; i < 15; i++)
+	{
+		particle_[i].Initialize();
+	}
+	
 }
 
-void Enemy::Update()
+void BoxEnemy::Update()
 {
 	if (delayFrameBulletEnemy_ > 0)
 	{
@@ -28,46 +38,93 @@ void Enemy::Update()
 		enemyRespawnCount_ -= 1;
 		enemyExplosion_ = true;
 	}
+	if (enemyExplosion_ == true)
+	{
+		
+		for (int i = 0; i < 15; i++)
+		{
+			if (particle_[i].GetParticleCrush_() == false)
+			{
+				particle_[i].Setpaticle(enemyPosX_, enemyPosY_, rand() % 8 - 4, rand() % 8 - 4);
+			}
+		}
+
+		for (int i = 0; i < 15; i++)
+		{
+			if (particle_[i].GetParticleCrush_() == true)
+			{
+				particle_[i].Update();
+			}
+		}
+	}
 	if (enemyRespawnCount_ <= 90) 
 	{
 		enemyExplosion_ = false;
+	}
+	if (enemyExplosion_ == false)
+	{
+		for (int i = 0; i < 15; i++)
+		{
+			particle_[i].ParticleOnColision();
+		}	
 	}
 	if (enemyRespawnCount_ == 0) 
 	{
 		enemyIsAlive_ = true;
 		enemyRespawnCount_ = 120;
 	}
-
-	if (enemyBullet_.GetIsEnemyBulletShot() == false && enemyIsAlive_ == true && delayFrameBulletEnemy_ <= 0) 
+	for (int i = 0; i < 20; i++)
 	{
-		delayFrameBulletEnemy_ = enemyDelayFrameBullet_;
-		enemyBullet_.SetEnemyBulletInfo(enemyPosX_, enemyPosY_, enemySpeedX_, enemySpeedY_, enemyRadius_);
+		if (enemyBullet_[i].GetIsEnemyBulletShot() == false  && delayFrameBulletEnemy_ <= 0)
+		{
+			delayFrameBulletEnemy_ = enemyDelayFrameBullet_;
+			enemyBullet_[i].SetEnemyBulletInfo(enemyPosX_, enemyPosY_, enemySpeedX_, enemySpeedY_, enemyRadius_);
+			enemyBullet_[i].EnemyBulletOnColision();
+		}
+		enemyBullet_[i].Update();
 	}
 }
 
-void Enemy::Move()
+void BoxEnemy::Move()
 {
 	if (enemyIsAlive_ == true)
 	{
 		enemyPosY_ += enemySpeedY_;
+		enemyPosX_ -= enemySpeedX_;
+
 		if (enemyPosY_ + enemyRadius_ >= 720) //�G�̔���
 		{
 			enemySpeedY_ *= -1;
 		}
-		if (enemyPosY_ - enemyRadius_ <= 0)
+		if (enemyPosY_  <= 0)
 		{
 			enemySpeedY_ *= -1;
 		}
 	}
 }
 
-void Enemy::Draw()
+void BoxEnemy::Draw()
 {
 	if (enemyIsAlive_ == true)
 	{
-		Novice::DrawBox(enemyPosX_ - 32.0f, enemyPosY_ - 32.0f,32,32, 0.0f, BLACK, kFillModeSolid);
+
+		Novice::DrawBox(enemyPosX_-16, enemyPosY_-16,32,32, 0.0f, BLACK, kFillModeSolid);
 	}
-	
+	for (int i = 0; i < 20; i++)
+	{
+		if (enemyBullet_[i].GetIsEnemyBulletShot() == true)
+		{
+			enemyBullet_[i].Draw();
+		}
+	}
+	if (enemyExplosion_ == true)
+	{
+		for (int i = 0; i < 15; i++)
+		{
+			particle_[i].DrawBox();
+		}
+		
+	}
 	/*if (enemyIsAlive_ == true)
 	{
 		Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosY_ - 32.0f, enemyPoint_, 1, 1, 0.0f, 0xFFFFFFFF);
@@ -99,10 +156,10 @@ void Enemy::Draw()
 			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[5], 1, 1, 0.0f, 0xFFFFFFFF);
 		}
 	}*/
-
+	
 }
 
-void Enemy::EnemyOnColision()
+void BoxEnemy::EnemyOnColision()
 {
 	enemyIsAlive_ = false;
 }

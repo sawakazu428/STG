@@ -1,50 +1,53 @@
 ﻿#include "EnemyBullet.h"
-void EnemyBullet::Initialize()
+void BoxEnemyBullet::Initialize()
 {
 	enemyBulletPosX_ = 100;
 	enemyBulletPosY_ = 100;
-	enemyBulletRadius_ = 30;
-	enemyBulletSpeedX_ = 4;
-	enemyBulletSpeedY_ = 4;
-	//drawEnemyBullet_ = Novice::LoadTexture("./Resources/enemyBullet.png");
+	enemyBulletRadius_ = 16;
+	enemyBulletSpeedX_ = 6;
+	enemyBulletSpeedY_ = 6;
+	isEnemyBulletShot_ = false;
+	drawEnemyBullet_ = Novice::LoadTexture("./Resources/enemyBullet.png");
 }
 
-void EnemyBullet::Update()
+void BoxEnemyBullet::Update()
 {
-	isEnemyBulletShot_ = true;
 
 	if (isEnemyBulletShot_ == true)
 	{
-		enemyBulletPosY_ -= enemyBulletSpeedY_;
+		enemyBulletPosX_ -= enemyBulletSpeedX_;
 	}
-	if (enemyBulletPosY_ + enemyBulletRadius_ >= 720)
+	if (enemyBulletPosX_ + enemyBulletRadius_ <= 0)
 	{
 		isEnemyBulletShot_ = false;
 
 	}
 }
 
-void EnemyBullet::Draw()
+void BoxEnemyBullet::Draw()
 {
 	if (isEnemyBulletShot_ == true)
 	{
-		Novice::DrawBox(enemyBulletPosX_ - 32.0f, enemyBulletPosY_ - 32.0f, 32,32, 0.0f, RED, kFillModeSolid);
+		//Novice::DrawBox(enemyBulletPosX_ - 32.0f, enemyBulletPosY_ - 32.0f, 32,32, 0.0f, RED, kFillModeSolid);
 
-		//Novice::DrawSprite(enemyBulletPosX_ - 32.0f, enemyBulletPosY_ - 32.0f, drawEnemyBullet_, 1, 1, 0.0f, 0xFFFFFFFF);
+	    Novice::DrawSprite(enemyBulletPosX_ - 16.0f, enemyBulletPosY_ - 16.0f, drawEnemyBullet_, 0.7, 0.7, 0.0f, WHITE);
 		//Novice::DrawTriangle(bulletenemy[j].bulletposX - 10, bulletenemy[j].bulletposY + 10, bulletenemy[j].bulletposX + 10, bulletenemy[j].bulletposY + 10, bulletenemy[j].bulletposX, bulletenemy[j].bulletposY + 25, 0xFFFFFFFF, kFillModeSolid); //�e
 	}
 }
 
-void EnemyBullet::SetEnemyBulletInfo(int posX, int posY, int speedX, int speedY, int radius)
+void BoxEnemyBullet::SetEnemyBulletInfo(int posX, int posY, int speedX, int speedY, int radius)
 {
 	enemyBulletPosX_ = posX;
 	enemyBulletPosY_ = posY;
-	enemyBulletSpeedX_ = speedX;
-	enemyBulletSpeedY_ = speedY;
 	enemyBulletRadius_ = radius;
 }
 
-void EnemyBullet::EnemyBulletOnColision()
+void BoxEnemyBullet::EnemyBulletOnColision()
+{
+	isEnemyBulletShot_ = true;
+}
+
+void BoxEnemyBullet::EnemyReceiveBulletOnColision()
 {
 	isEnemyBulletShot_ = false;
 }
