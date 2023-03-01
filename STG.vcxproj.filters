@@ -23,6 +23,9 @@
     <Filter Include="Particle">
       <UniqueIdentifier>{748606a8-d5c4-47b4-9e4b-72fac7323e5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneMane">
+      <UniqueIdentifier>{7c719562-3551-4d25-a77c-fc3fb8ae0138}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -37,7 +40,6 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp">
       <Filter>KamataEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp">
       <Filter>KamataEngine\Adapter</Filter>
     </ClCompile>
@@ -53,7 +55,6 @@
     <ClCompile Include="EnemyBullet.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="EliipseEnemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -68,6 +69,19 @@
     </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>SceneMane</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManeger.cpp">
+      <Filter>SceneMane</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="BossEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEnemyBullet.cpp">
+      <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +175,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="EliipseEnemy.h">
       <Filter>Enemy</Filter>
     </ClInclude>
@@ -176,6 +189,18 @@
     </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>SceneMane</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManeger.h">
+      <Filter>SceneMane</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemyBullet.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

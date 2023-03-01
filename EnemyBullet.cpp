@@ -22,6 +22,11 @@ void BoxEnemyBullet::Update()
 		isEnemyBulletShot_ = false;
 
 	}
+	if (enemyBulletPosX_ + enemyBulletRadius_ >= 1280)
+	{
+		isEnemyBulletShot_ = false;
+
+	}
 }
 
 void BoxEnemyBullet::Draw()

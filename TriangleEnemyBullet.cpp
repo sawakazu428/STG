@@ -42,6 +42,23 @@ void TriangleEnemyBullet::Update()
 		isEnemyTriangleBulletShot_ = false;
 
 	}
+	if (enemyTriangleBulletPosX_ + enemyTriangleBulletRadius_ <= 0)
+	{
+		isEnemyTriangleBulletShot_ = false;
+	}
+	if (enemyTriangleBulletPosY_ - enemyTriangleBulletRadius_ > 720)
+	{
+		isEnemyTriangleBulletShot_ = false;
+	}
+	if (enemyTriangleBulletPosY_ + enemyTriangleBulletRadius_ < 0)
+	{
+		isEnemyTriangleBulletShot_ = false;
+	}
+	if (enemyTriangleBulletPosX_ - enemyTriangleBulletRadius_ > 1280)
+	{
+		isEnemyTriangleBulletShot_ = false;
+	}
+
 }
 
 void TriangleEnemyBullet::Draw()

@@ -2,9 +2,6 @@
 #include "Novice.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
-
-
-
 class EllipseEnemyBullet
 {
 private:

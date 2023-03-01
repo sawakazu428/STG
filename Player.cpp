@@ -11,12 +11,13 @@ void Player::Initialize()
 	playerHP_ = 5;
 	playerIsAlive_ = true;
 	playerAvoid_ = false;
-	playerAvoidTime_ = 10;
-	delayFrameBullet_ = 30;
+	avoidCoolTime_ = 60;
+	playerAvoidTime_ = 30;
+	delayFrameBullet_ = 25;
 	delayFrameBullet1_ = 50;
 	delayFrameBullet2_ = 40;
 	playerDelayFrameBullet_ = 30;
-	playerDelayFrameBullet1_ = 50;
+	playerDelayFrameBullet1_[5] = { 60 };
 	playerDelayFrameBullet2_ = 40;
 	playerDoubleShot_ = true;
 	playerShotGun_ = false;
@@ -31,10 +32,12 @@ void Player::Initialize()
 	{
 		playerbullet_[i].Initialize();
 	}
-	//blueHealth_[0] = Novice::LoadTexture("./Resources/blueHeart.png");
-	//blueHealth_[1] = Novice::LoadTexture("./Resources/blueHeart.png");
-	//blueHealth_[2] = Novice::LoadTexture("./Resources/blueHeart.png");
-
+	blueHealth_[0] = Novice::LoadTexture("./Resources/blueHeart.png");
+	blueHealth_[1] = Novice::LoadTexture("./Resources/blueHeart.png");
+	blueHealth_[2] = Novice::LoadTexture("./Resources/blueHeart.png");
+	blueHealth_[3] = Novice::LoadTexture("./Resources/blueHeart.png");
+	blueHealth_[4] = Novice::LoadTexture("./Resources/blueHeart.png");
+	playerDisplay_ = Novice::LoadTexture("./Resources/player.png");
 }
 
 void Player::Update(char* keys, char* preKeys)
@@ -42,6 +45,17 @@ void Player::Update(char* keys, char* preKeys)
 	if (playerDelayFrameBullet_ >= 0)
 	{
 		playerDelayFrameBullet_--;
+	}
+	for (int j = 0; j < 5; j++)
+	{
+		if (playerDelayFrameBullet1_[j] >= 0)
+		{
+			playerDelayFrameBullet1_[j]--;
+		}
+	}
+	if (playerDelayFrameBullet2_ >= 0)
+	{
+		playerDelayFrameBullet2_--;
 	}
 	
 	if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerDoubleShot_ == true)
@@ -84,8 +98,11 @@ void Player::Update(char* keys, char* preKeys)
 		playerLaserGun_ = true; // ON
 	}
 
-
-	if (keys[DIK_Z] && preKeys[DIK_Z] == 0)
+	if (playerAvoid_ == false)
+	{
+		avoidCoolTime_--;
+	}
+	if (keys[DIK_Z] && preKeys[DIK_Z] == 0 &&  playerAvoid_ == false && avoidCoolTime_ <= 0|| keys[DIK_R] && preKeys[DIK_R] == 0 && playerAvoid_ == false)
 	{
 		playerAvoid_ = true;
 	}
@@ -96,12 +113,13 @@ void Player::Update(char* keys, char* preKeys)
 	if (playerAvoidTime_ <= 0)
 	{
 		playerAvoid_ = false;
-		playerAvoidTime_ = 10;
+		playerAvoidTime_ = 30;
+		avoidCoolTime_ = 60;
 	}
-	for (int i = 0; i < 20; i++)
-	{
 
-		if (playerDoubleShot_ == true)
+	if (playerDoubleShot_ == true)
+	{
+		for (int i = 0; i < 20; i++)
 		{
 			playerbullet_[i].NormalUpdate();
 
@@ -110,36 +128,35 @@ void Player::Update(char* keys, char* preKeys)
 				if (keys[DIK_SPACE] && playerDelayFrameBullet_ <= 0)
 				{
 					playerDelayFrameBullet_ = delayFrameBullet_;
-					playerbullet_[i].SetPlayerBulletInfo(playerPosX_, playerPosY_, playerSpeedX_, playerSpeedY_);
+					playerbullet_[i].SetPlayerBulletInfo(playerPosX_, playerPosY_, 10, 10);
 					playerbullet_[i].BulletOnColision();
 				}
 			}
 		}
 	}
-
-	for (int j = 0; j < 5; j++)
+		
+	if (playerShotGun_ == true)
 	{
-		if (playerShotGun_ == true)
+		for (int i = 0; i < 20; i++)
 		{
-			for (int i = 0; i < 20; i++)
+			for (int j = 0; j < 5; j++)
 			{
+
+				playerbullet_[i].DiffusionUpdate();
 
 				if (playerbullet_[i].GetPlayerIsBulletShot() == false)
 				{
-					if (keys[DIK_SPACE] && playerDelayFrameBullet1_ <= 0)
+					if (keys[DIK_SPACE] && playerDelayFrameBullet1_[j] <= 0)
 					{
-						playerbullet_[i].SetPlayerBulletInfo(playerPosX_, playerPosY_, rand() % 6 - 0 + 1, rand() % 12 - 6 + 1);
+						playerDelayFrameBullet1_[j] = delayFrameBullet1_;
+						playerbullet_[i].SetPlayerBulletInfo(playerPosX_, playerPosY_, rand() % 3 - 0 + 1, rand() % 6 - 3);
 						playerbullet_[i].BulletOnColision();
 					}
 				}
 
-				playerbullet_[i].DiffusionUpdate();
 
 			}
-
-			playerDelayFrameBullet1_ = delayFrameBullet1_;
 		}
-		break;
 	}
 
 	for (int i = 0; i < 20; i++)
@@ -186,7 +203,6 @@ void Player::Update(char* keys, char* preKeys)
 	}
 	if (playerDefeatCount_ == 0)
 	{
-		playerHP_ = 3;
 		isPlayerPoint_ = true;
 		playerDefeatCount_ = 60;
 	}
@@ -238,35 +254,57 @@ void Player::Draw()
 {
 	if (playerHP_ >= 1)
 	{
-		Novice::DrawBox(playerPosX_-16, playerPosY_-16, playerRadius_, playerRadius_, 0.0f, WHITE, kFillModeSolid);
+		//Novice::DrawBox(playerPosX_-16, playerPosY_-16, playerRadius_, playerRadius_, 0.0f, WHITE, kFillModeSolid);
+		Novice::DrawSprite(playerPosX_ - 36, playerPosY_ - 36, playerDisplay_, 1, 1, 0.0f, 0xFFFFFFFF);
 		if (isPlayerInvincibleHit_ == true)
 		{
-			Novice::DrawBox(playerPosX_-16, playerPosY_-16, playerRadius_, playerRadius_, 0.0f, RED, kFillModeSolid);
+			Novice::DrawSprite(playerPosX_ - 36, playerPosY_ - 36, playerDisplay_, 1, 1, 0.0f, RED);
+
+		//	Novice::DrawBox(playerPosX_-16, playerPosY_-16, playerRadius_, playerRadius_, 0.0f, RED, kFillModeSolid);
 		}
 	}
-
-	/*if (playerHP_ == 3)
+	if (playerHP_ == 5)
 	{
-		Novice::DrawSprite(884, 245, blueHealth_[2], 1, 1, 0.0f, 0xFFFFFFFF);
-		Novice::DrawSprite(852, 245, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
-		Novice::DrawSprite(820, 245, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(128, 0, blueHealth_[4], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(96, 0, blueHealth_[3], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(64,0, blueHealth_[2], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(32,0, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(0, 0, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+	}
+	if (playerHP_ == 4)
+	{
+		Novice::DrawSprite(96, 0, blueHealth_[3], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(64, 0, blueHealth_[2], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(32, 0, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(0, 0, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+	}
+	if (playerHP_ == 3)
+	{
+		Novice::DrawSprite(64, 0, blueHealth_[2], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(32, 0, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(0, 0, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
 	}
 	if (playerHP_ == 2)
 	{
-		Novice::DrawSprite(852, 245, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
-		Novice::DrawSprite(820, 245, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(32, 0, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(0, 0, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
 	}
 	if (playerHP_ == 1)
 	{
-		Novice::DrawSprite(820, 245, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
-	}*/
+		Novice::DrawSprite(0, 0, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+	}
+#ifdef _DEBUG
 
-	Novice::ScreenPrintf(0, 0, "posX %d", playerbullet_[0].GetPlayerBulletPosX());
-	Novice::ScreenPrintf(0, 20, "posY %d", playerbullet_[0].GetPlayerBulletPosY());
-	Novice::ScreenPrintf(0, 40, "speedX %d", playerbullet_[0].GetPlayerBulletSpeedX());
-	Novice::ScreenPrintf(0, 60, "speedY %d", playerbullet_[0].GetPlayerBulletSpeedY());
-	Novice::ScreenPrintf(0, 80, "radius %d", playerbullet_[0].GetPlayerBulletRadius());
-	Novice::ScreenPrintf(0, 100, "isBullet %d", playerbullet_[0].GetPlayerIsBulletShot());
+
+	//Novice::ScreenPrintf(0, 0, "posX %d", playerbullet_[0].GetPlayerBulletPosX());
+	//Novice::ScreenPrintf(0, 20, "posY %d", playerbullet_[0].GetPlayerBulletPosY());
+	//Novice::ScreenPrintf(0, 40, "speedX %d", playerbullet_[0].GetPlayerBulletSpeedX());
+	//Novice::ScreenPrintf(0, 60, "speedY %d", playerbullet_[0].GetPlayerBulletSpeedY());
+	//Novice::ScreenPrintf(0, 80, "radius %d", playerbullet_[0].GetPlayerBulletRadius());
+	//Novice::ScreenPrintf(0, 100, "isBullet %d", playerbullet_[0].GetPlayerIsBulletShot());
+	//Novice::ScreenPrintf(0, 120, "playerShotGun_ %d", playerShotGun_);
+	//Novice::ScreenPrintf(0, 140, "%d", playerAvoid_);
+#endif // DEBUG
 
 	for (int i = 0; i < 20; i++)
 	{

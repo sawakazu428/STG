@@ -11,6 +11,7 @@ void PlayerBullet::Initialize()
 	playerBulletRadius_ = 20;
 	playerBulletNum_ = 20;
 	playerIsBulletShot_ = false;
+	isPlayerDiffusionShot_[5] ={false};
 	playerBulletPoint_ = Novice::LoadTexture("./Resources/bullet.png");
 }
 
@@ -61,7 +62,7 @@ void PlayerBullet::LinearUpdate()
 
 	if (playerIsBulletShot_ == true)
 	{
-		playerBulletPosX_ -= playerBulletSpeedX_;
+		playerBulletPosX_ += playerBulletSpeedX_;
 	}
 
 	if (playerBulletPosX_ - playerBulletRadius_ < 0)
@@ -90,6 +91,10 @@ void PlayerBullet::SetPlayerBulletInfo(int posX, int posY, int speedX, int speed
 void PlayerBullet::BulletOnColision()
 {
 	playerIsBulletShot_ = true;
+}
+
+void PlayerBullet::BulletDiffusionOnColision()
+{
 }
 
 void PlayerBullet::BulletReceiveOnColision()

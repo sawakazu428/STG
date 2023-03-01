@@ -5,16 +5,16 @@ void TriangleEnemy::Initialize(int x, int y)
 {
 	enemyTrianglePosX_ = x;
 	enemyTrianglePosY_ = y;
-	enemyTriangleSpeedX_ = 1;
+	enemyTriangleSpeedX_ = 2;
 	enemyTriangleSpeedY_ = 4;
 	enemyTriangleRadius_ = 16;
 	enemyTriangleHP_ = 1;
 	enemyTriangleIsAlive_ = true;
 
 	enemyTriangleExplosion_ = false;
-	enemyTriangleRespawnCount_ = 120;
+	enemyTriangleRespawnCount_ = 180;
 
-	enemyTriangleDelayFrameBullet_ = 60;
+	enemyTriangleDelayFrameBullet_ = 100;
 	delayFrameBulletEnemyTriangle_ = enemyTriangleDelayFrameBullet_;
 	for (int i = 0; i < 20; i++)
 	{
@@ -56,7 +56,7 @@ void TriangleEnemy::Update()
 			}
 		}
 	}
-	if (enemyTriangleRespawnCount_ <= 90)
+	if (enemyTriangleRespawnCount_ <= 150)
 	{
 		enemyTriangleExplosion_ = false;
 	}
@@ -70,7 +70,7 @@ void TriangleEnemy::Update()
 	if (enemyTriangleRespawnCount_ == 0)
 	{
 		enemyTriangleIsAlive_ = true;
-		enemyTriangleRespawnCount_ = 120;
+		enemyTriangleRespawnCount_ = 180;
 	}
 	for (int i = 0; i < 20; i++)
 	{
@@ -87,19 +87,18 @@ void TriangleEnemy::Update()
 
 void TriangleEnemy::Move()
 {
-	if (enemyTriangleIsAlive_ == true)
+
+	enemyTrianglePosY_ += enemyTriangleSpeedY_;
+	enemyTrianglePosX_ -= enemyTriangleSpeedX_;
+	if (enemyTrianglePosY_ + enemyTriangleRadius_ >= 720) //�G�̔���
 	{
-		enemyTrianglePosY_ += enemyTriangleSpeedY_;
-		enemyTrianglePosX_ -= enemyTriangleSpeedX_;
-		if (enemyTrianglePosY_ + enemyTriangleRadius_ >= 720) //�G�̔���
-		{
-			enemyTriangleSpeedY_ *= -1;
-		}
-		if (enemyTrianglePosY_ <= 0)
-		{
-			enemyTriangleSpeedY_ *= -1;
-		}
+		enemyTriangleSpeedY_ *= -1;
 	}
+	if (enemyTrianglePosY_ <= 0)
+	{
+		enemyTriangleSpeedY_ *= -1;
+	}
+
 }
 
 void TriangleEnemy::Draw()
@@ -107,7 +106,7 @@ void TriangleEnemy::Draw()
 	if (enemyTriangleIsAlive_ == true)
 	{
 
-		Novice::DrawTriangle(enemyTrianglePosX_ + 16, enemyTrianglePosY_ - 16, enemyTrianglePosX_ - 16, enemyTrianglePosY_, enemyTrianglePosX_ + 16, enemyTrianglePosY_ + 16, WHITE, kFillModeSolid);
+		Novice::DrawTriangle(enemyTrianglePosX_ + 16, enemyTrianglePosY_ - 16, enemyTrianglePosX_ - 16, enemyTrianglePosY_, enemyTrianglePosX_ + 16, enemyTrianglePosY_ + 16, GREEN, kFillModeSolid);
 	}
 	for (int i = 0; i < 20; i++)
 	{
@@ -124,37 +123,7 @@ void TriangleEnemy::Draw()
 		}
 
 	}
-	/*if (enemyIsAlive_ == true)
-	{
-		Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosY_ - 32.0f, enemyPoint_, 1, 1, 0.0f, 0xFFFFFFFF);
-	}
-	if (enemyExplosion_ == true && enemyRespawnCount_ != 120)
-	{
-		if (enemyRespawnCount_ < 120 && enemyRespawnCount_ >= 117)
-		{
-			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[0], 1, 1, 0.0f, 0xFFFFFFFF);
-		}
-		if (enemyRespawnCount_ <= 117 && enemyRespawnCount_ >= 113)
-		{
-			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[1], 1, 1, 0.0f, 0xFFFFFFFF);
-		}
-		if (enemyRespawnCount_ <= 113 && enemyRespawnCount_ >= 107)
-		{
-			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[2], 1, 1, 0.0f, 0xFFFFFFFF);
-		}
-		if (enemyRespawnCount_ <= 107 && enemyRespawnCount_ >= 103)
-		{
-			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[3], 1, 1, 0.0f, 0xFFFFFFFF);
-		}
-		if (enemyRespawnCount_ <= 103 && enemyRespawnCount_ >= 97)
-		{
-			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[4], 1, 1, 0.0f, 0xFFFFFFFF);
-		}
-		if (enemyRespawnCount_ <= 97)
-		{
-			Novice::DrawSprite(enemyPosX_ - 32.0f, enemyPosX_ - 32.0f, drawExplosion1_[5], 1, 1, 0.0f, 0xFFFFFFFF);
-		}
-	}*/
+	
 
 }
 

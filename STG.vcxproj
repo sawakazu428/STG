@@ -92,6 +92,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BossEnemy.cpp" />
+    <ClCompile Include="BossEnemyBullet.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\TextureManager.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
@@ -106,6 +108,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManeger.cpp" />
     <ClCompile Include="TriangleEnemy.cpp" />
     <ClCompile Include="TriangleEnemyBullet.cpp" />
   </ItemGroup>
@@ -115,6 +118,8 @@
     <ClInclude Include="..\DirectXGame\math\Vector2.h" />
     <ClInclude Include="..\DirectXGame\math\Vector3.h" />
     <ClInclude Include="..\DirectXGame\math\Vector4.h" />
+    <ClInclude Include="BossEnemy.h" />
+    <ClInclude Include="BossEnemyBullet.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\CircleShadow.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DebugCamera.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DirectionalLight.h" />
@@ -144,6 +149,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManeger.h" />
     <ClInclude Include="TriangleEnemy.h" />
     <ClInclude Include="TriangleEnemyBullet.h" />
   </ItemGroup>
