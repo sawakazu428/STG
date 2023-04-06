@@ -19,8 +19,8 @@ void Player::Initialize()
 	playerDelayFrameBullet_ = 30;
 	playerDelayFrameBullet1_[5] = { 60 };
 	playerDelayFrameBullet2_ = 40;
-	playerDoubleShot_ = true;
-	playerShotGun_ = false;
+	playerDoubleShot_ = false;
+	playerShotGun_ =  true;
 	playerLaserGun_ = false;
 
 	playerHitTime_ = 90;
@@ -58,45 +58,45 @@ void Player::Update(char* keys, char* preKeys)
 		playerDelayFrameBullet2_--;
 	}
 	
-	if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerDoubleShot_ == true)
+	if (keys[DIK_Q] && preKeys[DIK_Q] == 0)
 	{
-		playerDoubleShot_ = false;
+		playerDoubleShot_ = true;
 		playerShotGun_ = false;
-		playerLaserGun_ = true; // ON
+		//playerLaserGun_ = true; // ON
 	}
-	if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerDoubleShot_ == true)
+	if (keys[DIK_E] && preKeys[DIK_E] == 0)
 	{
 		playerDoubleShot_ = false;
 		playerShotGun_ = true; // ON
-		playerLaserGun_ = false; 
+		//playerLaserGun_ = false; 
 	}
 
-	if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerLaserGun_ == true)
-	{
-		playerDoubleShot_ = false;
-		playerShotGun_ = true; // ON
-		playerLaserGun_ = false;
-	}
-	if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerLaserGun_ == true)
-	{
-		playerDoubleShot_ = true; // ON
-		playerShotGun_ = false;
-		playerLaserGun_ = false;
-	}
+	//if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerLaserGun_ == true)
+	//{
+	//	playerDoubleShot_ = false;
+	//	playerShotGun_ = true; // ON
+	//	playerLaserGun_ = false;
+	//}
+	//if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerLaserGun_ == true)
+	//{
+	//	playerDoubleShot_ = true; // ON
+	//	playerShotGun_ = false;
+	//	playerLaserGun_ = false;
+	//}
 
-	if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerShotGun_ == true)
-	{
-		playerDoubleShot_ = true; // ON
-		playerShotGun_ = false;
-		playerLaserGun_ = false;
-	}
+	//if (keys[DIK_Q] && preKeys[DIK_Q] == 0 && playerShotGun_ == true)
+	//{
+	//	playerDoubleShot_ = true; // ON
+	//	playerShotGun_ = false;
+	//	//playerLaserGun_ = false;
+	//}
 
-	if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerShotGun_ == true)
-	{
-		playerDoubleShot_ = false;
-		playerShotGun_ = false; 
-		playerLaserGun_ = true; // ON
-	}
+	//if (keys[DIK_E] && preKeys[DIK_E] == 0 && playerShotGun_ == true)
+	//{
+	//	playerDoubleShot_ = true;
+	//	playerShotGun_ = false; 
+	//	//playerLaserGun_ = true; // ON
+	//}
 
 	if (playerAvoid_ == false)
 	{

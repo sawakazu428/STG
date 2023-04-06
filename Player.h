@@ -17,7 +17,6 @@ private:
 	int playerAvoidTime_;   // 回避している時間
 	bool playerDoubleShot_; // 通常の弾を撃つフラグ
 	bool playerShotGun_;    // 拡散弾を撃つフラグ
-	bool* isPlayerDiffusionShot_[5];
 	bool playerLaserGun_;   // レーザーを撃つフラグ
 
 	int delayFrameBullet_;       // プレイやーの弾丸発射の待機時間

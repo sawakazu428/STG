@@ -11,7 +11,7 @@ void PlayerBullet::Initialize()
 	playerBulletRadius_ = 20;
 	playerBulletNum_ = 20;
 	playerIsBulletShot_ = false;
-	isPlayerDiffusionShot_[5] ={false};
+	isPlayerDiffusionShot_[5] = false;
 	playerBulletPoint_ = Novice::LoadTexture("./Resources/bullet.png");
 }
 
